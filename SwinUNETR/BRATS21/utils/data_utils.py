@@ -71,17 +71,61 @@ def datafold_read(datalist, basedir, fold=0, key="training"):
     with open(datalist) as f:
         json_data = json.load(f)
 
+    
+
+
+    #il file json è così strutturato
+    #{
+    #"training": [
+    #    {
+    #        "fold": 0,
+    #        "image": [
+    #            "TrainingData/BraTS2021_01146/BraTS2021_01146_flair.nii.gz",
+    #            "TrainingData/BraTS2021_01146/BraTS2021_01146_t1ce.nii.gz",
+    #            "TrainingData/BraTS2021_01146/BraTS2021_01146_t1.nii.gz",
+    #            "TrainingData/BraTS2021_01146/BraTS2021_01146_t2.nii.gz"
+    #        ],
+    #        "label": "TrainingData/BraTS2021_01146/BraTS2021_01146_seg.nii.gz"
+    #    },
+    #    {
+    #        "fold": 0,
+    #        "image": [
+    #            "TrainingData/BraTS2021_01419/BraTS2021_01419_flair.nii.gz",
+    #            "TrainingData/BraTS2021_01419/BraTS2021_01419_t1ce.nii.gz",
+    #            "TrainingData/BraTS2021_01419/BraTS2021_01419_t1.nii.gz",
+    #            "TrainingData/BraTS2021_01419/BraTS2021_01419_t2.nii.gz"
+    #        ],
+    #        "label": "TrainingData/BraTS2021_01419/BraTS2021_01419_seg.nii.gz"
+    #    },
+    #    {
+    #       ...
+    #       ...
+    #       ...
+    # 
+
+    #facendo questo comando (ricordando che key = "Training" stiamo andando a prendere la lista dei dizionari)
     json_data = json_data[key]
 
+    #qui iteriamo sui d elementi della lista
     for d in json_data:
+        #d è a sua volta un dizionario, che contiene le chiavi "fold", "image" e "label"
+        #quindi iteriamo sulle 3 chiavi e sui tre valori
         for k, v in d.items():
+            #se la chiave che stiamo considerando ha come valore una lista, significa che siamo sulla chiave "image"
+            #la quale contiene a sua volta un array di 4 valori, cioè i percorsi dei 4 file .nii.gz delle 4 modalità
             if isinstance(d[k], list):
-                d[k] = [os.path.join(basedir, iv) for iv in d[k]]
+                #con questo comando d[image] conterrà un array con i 4 path concatenati con la basedir
+                d[k] = [os.path.join(basedir, iv) for iv in d[k]] 
             elif isinstance(d[k], str):
+                #la concatenazione con la basedir va fatta anche per "label"
                 d[k] = os.path.join(basedir, d[k]) if len(d[k]) > 0 else d[k]
 
     tr = []
     val = []
+
+    #qui facciamo lo splitting tra training data e validation data: se il valore per la chiave "fold"
+    # è uguale al fold che abbiamo passato come parametro, i dizionari relativi a quel fold saran messi
+    # nella lista di validation. Tutti gli altri saranno messi nella lista di training! =) 
     for d in json_data:
         if "fold" in d and d["fold"] == fold:
             val.append(d)
