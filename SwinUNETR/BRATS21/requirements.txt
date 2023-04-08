@@ -3,4 +3,4 @@ tqdm==4.59.0
 einops==0.4.1
 tensorboardX==2.1
 torch=1.9
-numpy=1.30
+numpy=1.3.0
