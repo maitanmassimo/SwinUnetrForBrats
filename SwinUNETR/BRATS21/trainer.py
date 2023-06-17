@@ -141,6 +141,8 @@ def run_training(
 ):
     writer = None
     if args.logdir is not None and args.rank == 0:
+        print("args.logdir")
+        print(args.logdir)
         writer = SummaryWriter(log_dir=args.logdir)
         if args.rank == 0:
             print("Writing Tensorboard logs to ", args.logdir)
