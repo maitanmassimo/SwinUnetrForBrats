@@ -61,7 +61,7 @@ parser.add_argument(
 def main():
     args = parser.parse_args()
     args.test_mode = True
-    output_directory = "./outputs/" + args.exp_name
+    output_directory = args.pretrained_dir + "/segmentation_outputs/" + args.exp_name
     if not os.path.exists(output_directory):
         os.makedirs(output_directory)
     test_loader = get_loader(args)
