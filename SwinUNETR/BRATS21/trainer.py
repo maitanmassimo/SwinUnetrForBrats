@@ -83,7 +83,7 @@ def val_epoch(model, loader, epoch, acc_func, args, model_inferer=None, post_sig
             acc_func.reset()
             acc_func(y_pred=val_output_convert, y=val_labels_list)
             acc, not_nans = acc_func.aggregate()
-            mean = np.mean(acc)
+            mean = torch.mean(acc)
             acc = acc.cuda(args.rank)
             
             #with open(os.path.join(args.logdir, "validation.csv"), "a") as f:
