@@ -87,7 +87,7 @@ def val_epoch(model, loader, epoch, acc_func, args, model_inferer=None, post_sig
             
             #with open(os.path.join(args.logdir, "validation.csv"), "a") as f:
             #    f.write("epoch\patient n\tDice_TC\tDice_WT\tDice_ET\n")
-
+            print(acc)
             with open(
                 os.path.join(args.logdir, "validation.csv"), "a"
             ) as f:
