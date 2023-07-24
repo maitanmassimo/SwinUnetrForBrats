@@ -84,6 +84,10 @@ def val_epoch(model, loader, epoch, acc_func, args, model_inferer=None, post_sig
             acc_func(y_pred=val_output_convert, y=val_labels_list)
             acc, not_nans = acc_func.aggregate()
             acc = acc.cuda(args.rank)
+            print("acc")
+            print(acc)
+            print("not_nans")
+            print(not_nans)
             if args.distributed:
                 acc_list, not_nans_list = distributed_all_gather(
                     [acc, not_nans], out_numpy=True, is_valid=idx < loader.sampler.valid_length
