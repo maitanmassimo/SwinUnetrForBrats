@@ -92,7 +92,7 @@ def val_epoch(model, loader, epoch, acc_func, args, model_inferer=None, post_sig
                 os.path.join(args.logdir, "validation.csv"), "a"
             ) as f:
                 f.write(
-                    "{:d}\t{:d}\t{:.5f}\t{:.5f}\t{:.5f}\t{:.5f}n".format(
+                    "{:d}\t{:d}\t{:.5f}\t{:.5f}\t{:.5f}\t{:.5f}\n".format(
                         epoch,
                         idx,
                         acc[0],
