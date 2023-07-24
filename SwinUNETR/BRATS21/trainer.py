@@ -84,10 +84,22 @@ def val_epoch(model, loader, epoch, acc_func, args, model_inferer=None, post_sig
             acc_func(y_pred=val_output_convert, y=val_labels_list)
             acc, not_nans = acc_func.aggregate()
             acc = acc.cuda(args.rank)
-            print("acc")
-            print(acc)
-            print("not_nans")
-            print(not_nans)
+            
+            #with open(os.path.join(args.logdir, "validation.csv"), "a") as f:
+            #    f.write("epoch\patient n\tDice_TC\tDice_WT\tDice_ET\n")
+
+            with open(
+                os.path.join(args.logdir, "validation.csv"), "a"
+            ) as f:
+                f.write(
+                    "{:d}\t{:d}\t{:.5f}\t{:.5f}\t{:.5f}\n".format(
+                        epoch,
+                        idx,
+                        acc[0],
+                        acc[1],
+                        acc[2]
+                    )
+                )
             if args.distributed:
                 acc_list, not_nans_list = distributed_all_gather(
                     [acc, not_nans], out_numpy=True, is_valid=idx < loader.sampler.valid_length
@@ -150,6 +162,8 @@ def run_training(
         writer = SummaryWriter(log_dir=args.logdir)
         if args.rank == 0:
             print("Writing Tensorboard logs to ", args.logdir)
+        with open(os.path.join(args.logdir, "validation.csv"), "a") as f:
+                f.write("epoch\tpatient n\tDice_TC\tDice_WT\tDice_ET\n")
     scaler = None
     if args.amp:
         scaler = GradScaler()
