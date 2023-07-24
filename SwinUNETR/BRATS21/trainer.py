@@ -92,12 +92,13 @@ def val_epoch(model, loader, epoch, acc_func, args, model_inferer=None, post_sig
                 os.path.join(args.logdir, "validation.csv"), "a"
             ) as f:
                 f.write(
-                    "{:d}\t{:d}\t{:.5f}\t{:.5f}\t{:.5f}\n".format(
+                    "{:d}\t{:d}\t{:.5f}\t{:.5f}\t{:.5f}\t{:.5f}n".format(
                         epoch,
                         idx,
                         acc[0],
                         acc[1],
-                        acc[2]
+                        acc[2],
+                        np.mean(acc)
                     )
                 )
             if args.distributed:
@@ -163,7 +164,7 @@ def run_training(
         if args.rank == 0:
             print("Writing Tensorboard logs to ", args.logdir)
         with open(os.path.join(args.logdir, "validation.csv"), "a") as f:
-                f.write("epoch\tpatient n\tDice_TC\tDice_WT\tDice_ET\n")
+                f.write("epoch\tpatient n\tDice_TC\tDice_WT\tDice_ET\tMean_Dice\n")
     scaler = None
     if args.amp:
         scaler = GradScaler()
