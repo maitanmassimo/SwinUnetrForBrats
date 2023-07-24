@@ -98,7 +98,7 @@ def val_epoch(model, loader, epoch, acc_func, args, model_inferer=None, post_sig
                         acc[0],
                         acc[1],
                         acc[2],
-                        np.mean(acc)
+                        np.mean(acc, axis=0)
                     )
                 )
             if args.distributed:
