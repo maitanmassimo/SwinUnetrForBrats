@@ -61,6 +61,7 @@ parser.add_argument("--RandRotate90d_prob", default=0.2, type=float, help="RandR
 parser.add_argument("--RandScaleIntensityd_prob", default=0.1, type=float, help="RandScaleIntensityd aug probability")
 parser.add_argument("--RandShiftIntensityd_prob", default=0.1, type=float, help="RandShiftIntensityd aug probability")
 parser.add_argument("--spatial_dims", default=3, type=int, help="spatial dimension of input data")
+parser.add_argument("--noamp", action="store_true", help="do NOT use amp for training")
 parser.add_argument("--use_checkpoint", action="store_true", help="use gradient checkpointing to save memory")
 parser.add_argument(
     "--pretrained_dir",
@@ -74,6 +75,7 @@ parser.add_argument("--squared_dice", action="store_true", help="use squared Dic
 def main():
     args = parser.parse_args()
     args.test_mode = True
+    args.amp = not args.noamp
     test_loader = get_loader(args)
     pretrained_dir = args.pretrained_dir
     model_name = args.pretrained_model_name
