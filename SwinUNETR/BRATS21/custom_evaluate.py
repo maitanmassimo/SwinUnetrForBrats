@@ -52,6 +52,7 @@ parser.add_argument("--space_z", default=2.0, type=float, help="spacing in z dir
 parser.add_argument("--roi_x", default=96, type=int, help="roi size in x direction")
 parser.add_argument("--roi_y", default=96, type=int, help="roi size in y direction")
 parser.add_argument("--roi_z", default=96, type=int, help="roi size in z direction")
+parser.add_argument("--rank", default=0, type=int, help="node rank for distributed training")
 parser.add_argument("--dropout_rate", default=0.0, type=float, help="dropout rate")
 parser.add_argument("--distributed", action="store_true", help="start distributed training")
 parser.add_argument("--workers", default=8, type=int, help="number of workers")
