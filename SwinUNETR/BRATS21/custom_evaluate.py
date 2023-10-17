@@ -111,7 +111,7 @@ def main():
 
     val_acc = val_model(
                 model,
-                val_loader=test_loader,
+                loader=test_loader,
                 acc_func=dice_acc,
                 model_inferer=model_inferer_test,
                 args=args,
