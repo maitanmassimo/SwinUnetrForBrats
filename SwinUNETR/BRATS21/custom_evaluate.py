@@ -53,6 +53,8 @@ parser.add_argument("--roi_x", default=96, type=int, help="roi size in x directi
 parser.add_argument("--roi_y", default=96, type=int, help="roi size in y direction")
 parser.add_argument("--roi_z", default=96, type=int, help="roi size in z direction")
 parser.add_argument("--dropout_rate", default=0.0, type=float, help="dropout rate")
+parser.add_argument("--distributed", action="store_true", help="start distributed training")
+parser.add_argument("--workers", default=8, type=int, help="number of workers")
 parser.add_argument("--RandFlipd_prob", default=0.2, type=float, help="RandFlipd aug probability")
 parser.add_argument("--RandRotate90d_prob", default=0.2, type=float, help="RandRotate90d aug probability")
 parser.add_argument("--RandScaleIntensityd_prob", default=0.1, type=float, help="RandScaleIntensityd aug probability")
