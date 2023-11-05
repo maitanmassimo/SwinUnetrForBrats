@@ -38,7 +38,7 @@ parser.add_argument("--pretrained_model_name", default="model.pt", type=str, hel
 parser.add_argument("--data_dir", default="/dataset/brats2021/", type=str, help="dataset directory")
 parser.add_argument("--json_list", default="./jsons/brats21_folds.json", type=str, help="dataset json file")
 parser.add_argument("--save_checkpoint", action="store_true", help="save checkpoint during training")
-parser.add_argument("--max_epochs", default=300, type=int, help="max number of training epochs")
+parser.add_argument("--max_epochs", default=3000, type=int, help="max number of training epochs")
 parser.add_argument("--batch_size", default=1, type=int, help="number of batch size")
 parser.add_argument("--sw_batch_size", default=4, type=int, help="number of sliding window batch size")
 parser.add_argument("--optim_lr", default=1e-4, type=float, help="optimization learning rate")
