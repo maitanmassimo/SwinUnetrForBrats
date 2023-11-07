@@ -111,7 +111,7 @@ def main():
     dice_acc = DiceMetric(include_background=True, reduction=MetricReduction.MEAN_BATCH, get_not_nans=True)
 
     model.cuda(args.gpu)
-    with open(os.path.join(args.logdir, "validation.csv"), "a") as f:
+    with open(os.path.join(args.logdir, "validation_finale.csv"), "a") as f:
                 f.write("patient\tDice_TC\tDice_WT\tDice_ET\tMean_Dice\n")
     val_acc = val_model(
                 model,
