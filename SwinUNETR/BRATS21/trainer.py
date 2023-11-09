@@ -188,7 +188,7 @@ def run_training(
         if args.rank == 0 and writer is not None:
             writer.add_scalar("train_loss", train_loss, epoch)
         b_new_best = False
-        if (epoch + 1) % args.val_every == 0:
+        if (epoch + 1) % args.val_every == 0 or epoch == 0:
             if args.distributed:
                 torch.distributed.barrier()
             epoch_time = time.time()
